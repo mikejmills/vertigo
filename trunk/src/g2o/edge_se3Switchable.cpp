@@ -10,7 +10,17 @@
 
 #include "edge_se3Switchable.h"
 #include "vertex_switchLinear.h"
+
+#ifdef __APPLE__
+
+#include <OpenGL/gl.h>
+
+#else
+
 #include <GL/gl.h>
+
+#endif
+
 #include "g2o/types/slam3d/vertex_se3.h"
 #include "g2o/types/slam3d/isometry3d_gradients.h"
 
@@ -93,11 +103,12 @@ void EdgeSE3Switchable::computeError()
 }
 
 
+
 #ifdef G2O_HAVE_OPENGL
   EdgeSE3SwitchableDrawAction::EdgeSE3SwitchableDrawAction(): DrawAction(typeid(EdgeSE3Switchable).name()){}
 
   g2o::HyperGraphElementAction* EdgeSE3SwitchableDrawAction::operator()(g2o::HyperGraph::HyperGraphElement* element,
-               g2o::HyperGraphElementAction::Parameters* /*params_*/){
+               g2o::HyperGraphElementAction::Parameters* params_){
     if (typeid(*element).name()!=_typeName)
       return 0;
     EdgeSE3Switchable* e =  static_cast<EdgeSE3Switchable*>(element);
@@ -118,3 +129,4 @@ void EdgeSE3Switchable::computeError()
     return this;
   }
 #endif
+

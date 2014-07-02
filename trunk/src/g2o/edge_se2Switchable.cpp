@@ -10,8 +10,16 @@
 
 #include "edge_se2Switchable.h"
 #include "vertex_switchLinear.h"
+
+#ifdef __APPLE__
+
+#include <OpenGL/gl.h>
+
+#else
+
 #include <GL/gl.h>
 
+#endif
 using namespace std;
 using namespace Eigen;
 
